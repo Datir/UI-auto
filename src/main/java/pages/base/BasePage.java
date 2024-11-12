@@ -27,10 +27,6 @@ public class BasePage {
         return driver.findElements(locator);
     }
 
-    public BasePage waitTime () throws InterruptedException {
-        driver.wait(PAUSE_WAIT);
-        return this;
-    }
 
 
 }
