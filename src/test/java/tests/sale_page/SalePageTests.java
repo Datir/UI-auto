@@ -1,10 +1,16 @@
 package tests.sale_page;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriverException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import tests.base.BaseTest;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 
 import static constants.Constants.TimeoutVariable.PAUSE_WAIT;
@@ -28,6 +34,48 @@ public class SalePageTests extends BaseTest {
             Assert.assertTrue(salePage.carNamesYearValue.get(i) >= 2007, "Year is lower than 2007"); // Год больше или равен 2007
             Assert.assertEquals(salePage.carBackgoundCSS.get(i), "0px 2px", "Car was sold"); //Имя машины не перечеркнуто
         }
+
+
+    }
+
+    @Test (priority = 99)
+    public void download () throws InterruptedException {
+        basePage.open("https://notepad-plus-plus.org/downloads/v8.6.7/");
+        var current_url = driver.getCurrentUrl();
+        var current_title = driver.getTitle();
+        System.out.println(current_url + current_title);
+        driver.findElement(By.xpath("//a[text()=\"Portable (zip)\"]")).click();
+        System.out.println(System.getProperty("user.dir"));
+
+        Thread.sleep(10000);
+
+    }
+
+    @Test (priority = 99)
+    public void upload () throws InterruptedException {
+        basePage.open("https://jpg2png.com/");
+        var current_url = driver.getCurrentUrl();
+        var current_title = driver.getTitle();
+        driver.findElement(By.xpath("//input[@type=\"file\"]")).sendKeys(System.getProperty("user.dir") + "\\downloads\\photo_2025-03-31_20-00-26.jpg");
+        System.out.println(System.getProperty("user.dir"));
+
+        Thread.sleep(10000);
+        TakesScreenshot takesScreenshot = (TakesScreenshot)driver;
+
+    }
+
+    @Test (priority = 99)
+    public void takeScreenshot () throws InterruptedException, IOException {
+        basePage.open("https://jpg2png.com/");
+        var current_url = driver.getCurrentUrl();
+        var current_title = driver.getTitle();
+        driver.findElement(By.xpath("//input[@type=\"file\"]")).sendKeys(System.getProperty("user.dir") + "\\downloads\\photo_2025-03-31_20-00-26.jpg");
+        System.out.println(System.getProperty("user.dir"));
+
+        Thread.sleep(10000);
+        TakesScreenshot takesScreenshot = (TakesScreenshot)driver;
+        var screen = takesScreenshot.getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(screen, new File(System.getProperty("user.dir") + "\\screenshots\\scren.png"));
 
 
     }

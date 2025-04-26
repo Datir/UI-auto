@@ -11,6 +11,7 @@ import static constants.Constants.TimeoutVariable.PAUSE_WAIT;
 public class BasePage {
     protected WebDriver driver;
 
+
     public BasePage(WebDriver driver){
         this.driver = driver;
     }
@@ -26,7 +27,4 @@ public class BasePage {
     public List<WebElement> findElems (By locator){
         return driver.findElements(locator);
     }
-
-
-
 }
